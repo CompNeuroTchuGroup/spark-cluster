@@ -16,7 +16,9 @@ services:
       - .:/main/workspace:rw
       - cifs-volume:/main/data:rw
   spark-worker:
-    image: cluster-apache-spark:3.5.2
+    build:
+      context: .
+      dockerfile: worker.Dockerfile
     user: root
     deploy:
       replicas: ${N_REPLICAS}
