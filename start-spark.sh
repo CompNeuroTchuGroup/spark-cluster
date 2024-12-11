@@ -12,7 +12,7 @@ cd /opt/spark/bin && ./spark-class org.apache.spark.deploy.master.Master --ip $S
 elif [ "$SPARK_MODE" == "worker" ];
 then
 
-cd /opt/spark/bin && ./spark-class org.apache.spark.deploy.worker.Worker --webui-port $SPARK_WORKER_WEBUI_PORT $SPARK_MASTER >> $SPARK_WORKER_LOG
+cd /opt/spark/sbin && ./start-slave.sh --webui-port $SPARK_WORKER_WEBUI_PORT $SPARK_MASTER --memory $SPARK_WORKER_MEMORY --cores $SPARK_WORKER_CORES >> $SPARK_WORKER_LOG
 
 elif [ "$SPARK_MODE" == "submit" ];
 then
