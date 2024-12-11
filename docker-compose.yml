@@ -1,0 +1,48 @@
+services:
+  spark:
+    image: docker.io/bitnami/spark:3.5.2
+    user: root
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+      - SPARK_USER=spark
+    ports:
+      - '8080:8080'
+      - '7077:7077'
+    volumes:
+      - .:/main/workspace:rw
+      - cifs-volume:/main/data:rw
+  spark-worker:
+    image: docker.io/bitnami/spark:3.5.2
+    user: root
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark:7077
+      - SPARK_WORKER_MEMORY=12G
+      - SPARK_WORKER_CORES=10
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+      - SPARK_USER=spark
+    volumes:
+      - .:/main/workspace:rw
+      - cifs-volume:/main/data:rw
+  almond:
+    image: almondsh/almond:latest
+    ports:
+      - 8888:8888
+    environment:
+      - JUPYTER_TOKEN=almond
+    volumes:
+      - .:/main/workspace:rw
+      - cifs-volume:/main/data:rw
+volumes: 
+  cifs-volume:
+    driver_opts:
+      type: cifs 
+      o: username=${SMB_USER},password=${SMB_PASSWORD},uid=1021,gid=100,vers=3.0
+      device: ${SMB_URL}
