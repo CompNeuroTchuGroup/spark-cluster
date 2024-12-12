@@ -13,8 +13,8 @@ services:
       - '8080:8080'
       - '7077:7077'
     volumes:
-      - .:/main/workspace:rw
-      - cifs-volume:/main/data:rw
+      - .:/main/workspace
+      - cifs-volume:/main/data
   spark-worker:
     build:
       context: .
@@ -34,8 +34,8 @@ services:
       - SPARK_SSL_ENABLED=no
       - SPARK_USER=spark
     volumes:
-      - .:/main/workspace:rw
-      - cifs-volume:/main/data:rw
+      - .:/main/workspace
+      - cifs-volume:/main/data
   almond:
     image: almondsh/almond:latest
     ports:
@@ -43,8 +43,8 @@ services:
     environment:
       - JUPYTER_TOKEN=almond
     volumes:
-      - .:/main/workspace:rw
-      - cifs-volume:/main/data:rw
+      - .:/main/workspace
+      - cifs-volume:/main/data
 volumes: 
   cifs-volume:
     driver_opts:
