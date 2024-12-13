@@ -49,5 +49,5 @@ volumes:
   cifs-volume:
     driver_opts:
       type: cifs 
-      o: username=${SMB_USER},password=${SMB_PASSWORD},uid=1021,gid=100,vers=3.0
+      o: username=${SMB_USER},password=${SMB_PASSWORD},uid=1000,gid-1000,vers=3.0,rw
       device: ${SMB_URL}
