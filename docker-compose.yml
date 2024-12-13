@@ -39,7 +39,7 @@ services:
   almond:
     image: almondsh/almond:latest
     ports:
-      - 8888:8888
+      - 8002:8888
     environment:
       - JUPYTER_TOKEN=almond
     volumes:
