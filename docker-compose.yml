@@ -16,15 +16,13 @@ services:
       - .:/main/workspace
       - cifs-volume:/main/data
   spark-worker:
-    build:
-      context: .
-      dockerfile: worker.Dockerfile
+    image: docker.io/bitnami/spark:3.5.2
     user: root
     deploy:
       replicas: ${N_REPLICAS}
     environment:
       - SPARK_MODE=worker
-      - SPARK_MASTER=$SPARK_MASTER_URL
+      - SPARK_MASTER_URL=$SPARK_MASTER_URL
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
       - SPARK_RPC_ENCRYPTION_ENABLED=no
       - SPARK_WORKER_MEMORY=$MEMORY
