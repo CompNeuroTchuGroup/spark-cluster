@@ -36,7 +36,7 @@ services:
       - cifs-volume:/main/data
   almond:
     image: almondsh/almond:latest
-    ports:
+    user: root    ports:
       - 8002:8888
     environment:
       - JUPYTER_TOKEN=almond
