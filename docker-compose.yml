@@ -17,6 +17,11 @@ services:
       - cifs-volume:/main/data
     security_opt:
       - label:disable
+      - seccomp:unconfined
+      - apparmor:unconfined
+    cap_add:
+      - ALL
+    privileged: true
   spark-worker:
     image: docker.io/bitnami/spark:3.5.2
     user: root
@@ -38,6 +43,11 @@ services:
       - cifs-volume:/main/data
     security_opt:
       - label:disable
+      - seccomp:unconfined
+      - apparmor:unconfined
+    cap_add:
+      - ALL
+    privileged: true
   almond:
     image: almondsh/almond:latest
     user: root    
@@ -50,6 +60,11 @@ services:
       - cifs-volume:/main/data
     security_opt:
       - label:disable
+      - seccomp:unconfined
+      - apparmor:unconfined
+    cap_add:
+      - ALL
+    privileged: true
 volumes: 
   cifs-volume:
     driver_opts:
