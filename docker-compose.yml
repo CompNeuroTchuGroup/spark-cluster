@@ -14,7 +14,7 @@ services:
       - '7077:7077'
     volumes:
       - .:/main/workspace
-      - cifs-volume:/main/data
+      - samba-volume:/main/external
     security_opt:
       - label:disable
       - seccomp:unconfined
@@ -40,7 +40,7 @@ services:
       - SPARK_USER=root
     volumes:
       - .:/main/workspace
-      - cifs-volume:/main/data
+      - samba-volume:/main/external
     security_opt:
       - label:disable
       - seccomp:unconfined
@@ -50,14 +50,14 @@ services:
     privileged: true
   almond:
     image: almondsh/almond:latest
-    user: root    
+    user: root
     ports:
       - 8002:8888
     environment:
       - JUPYTER_TOKEN=almond
     volumes:
       - .:/main/workspace
-      - cifs-volume:/main/data
+      - samba-volume:/main/external
     security_opt:
       - label:disable
       - seccomp:unconfined
@@ -65,9 +65,9 @@ services:
     cap_add:
       - ALL
     privileged: true
-volumes: 
-  cifs-volume:
+volumes:
+  samba-volume:
     driver_opts:
-      type: cifs 
+      type: cifs
       o: username=${SMB_USER},password=${SMB_PASSWORD},vers=3.0,rw,file_mode=0777,dir_mode=0777
       device: ${SMB_URL}
