@@ -53,7 +53,7 @@ services:
       - ALL
     privileged: true
   almond:
-    image: almondsh/almond:0.14.0-RC5-scala-2.12.18
+    image: almondsh/almond:latest
     user: root
     ports:
       - 8002:8888
@@ -70,7 +70,7 @@ services:
       - ALL
     privileged: true
   jupyter:
-    image: jupyter/datascience-notebook:x86_64-python-3.11
+    image: quay.io/jupyter/pyspark-notebook:python-3.12
     user: root
     ports:
       - 8003:8888
