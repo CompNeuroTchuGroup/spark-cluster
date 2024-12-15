@@ -1,6 +1,8 @@
 services:
   spark:
-    image: docker.io/bitnami/spark:3.5.2
+    build:
+      context: .
+      dockerfile: spark.Dockerfile
     user: root
     environment:
       - SPARK_MODE=master
@@ -11,6 +13,8 @@ services:
       - SPARK_USER=root
       - PYSPARK_PYTHON=/opt/bitnami/python/bin/python3.12
       - PYSPARK_DRIVER_PYTHON=/opt/bitnami/python/bin/python3.12
+      - SPARK_VERSION=3.5.2
+      - HADOOP_VERSION=3
     ports:
       - '8080:8080'
       - '7077:7077'
@@ -25,13 +29,15 @@ services:
       - ALL
     privileged: true
   spark-worker:
-    image: docker.io/bitnami/spark:3.5.2
+    build:
+      context: .
+      dockerfile: spark.Dockerfile
     user: root
     deploy:
       replicas: ${N_REPLICAS}
     environment:
       - SPARK_MODE=worker
-      - SPARK_MASTER_URL=$SPARK_MASTER_URL
+      - SPARK_MASTER=$SPARK_MASTER_URL
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
       - SPARK_RPC_ENCRYPTION_ENABLED=no
       - SPARK_WORKER_MEMORY=$MEMORY
@@ -42,6 +48,8 @@ services:
       - SPARK_USER=root
       - PYSPARK_PYTHON=/opt/bitnami/python/bin/python3.12
       - PYSPARK_DRIVER_PYTHON=/opt/bitnami/python/bin/python3.12
+      - SPARK_VERSION=3.5.2
+      - HADOOP_VERSION=3
     volumes:
       - .:/main/workspace
       - samba-volume:/main/external
