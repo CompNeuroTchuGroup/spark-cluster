@@ -32,6 +32,8 @@ services:
     build:
       context: .
       dockerfile: spark.Dockerfile
+    depends_on:
+      - spark
     user: root
     deploy:
       replicas: ${N_REPLICAS}
