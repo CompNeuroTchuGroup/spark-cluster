@@ -70,7 +70,14 @@ services:
       - ALL
     privileged: true
   jupyter:
-    image: quay.io/jupyter/pyspark-notebook:python-3.12
+    build:
+      context: .
+      dockerfile: pyspark-jupyter.Dockerfile
+      args:
+        openjdk_version: 11
+        spark_version: 3.2.0
+        hadoop_version: 3.2
+        spark_download_url: "https://archive.apache.org/dist/spark/"
     user: root
     ports:
       - 8003:8888
