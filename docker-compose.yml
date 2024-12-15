@@ -49,7 +49,7 @@ services:
       - ALL
     privileged: true
   almond:
-    image: almondsh/almond:latest
+    image: almondsh/almond:0.14.0-RC5-scala-2.12.18
     user: root
     ports:
       - 8002:8888
