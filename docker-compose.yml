@@ -65,6 +65,23 @@ services:
     cap_add:
       - ALL
     privileged: true
+  jupyter:
+    image: jupyter/datascience-notebook:x86_64-python-3.11
+    user: root
+    ports:
+      - 8003:8888
+    volumes:
+      - .:/main/workspace
+      - samba-volume:/main/external
+    environment:
+      - JUPYTER_TOKEN=jupyter
+    security_opt:
+      - label:disable
+      - seccomp:unconfined
+      - apparmor:unconfined
+    cap_add:
+      - ALL
+    privileged: true  
 volumes:
   samba-volume:
     driver_opts:
