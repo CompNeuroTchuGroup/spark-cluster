@@ -1,7 +1,8 @@
 FROM openjdk:11.0.11-jre-slim-buster AS builder
 
 # Add Dependencies for PySpark
-RUN add-apt-repository ppa:deadsnakes/ppa
+RUN add-apt-repository -y ppa:deadsnakes/ppa
+RUN apt update
 RUN apt-get update && apt-get install -y curl vim wget software-properties-common ssh net-tools ca-certificates python3.12 python3-pip python3-numpy python3-matplotlib python3-scipy python3-pandas python3-simpy
 RUN apt install -y rsync
 
