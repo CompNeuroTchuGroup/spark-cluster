@@ -79,6 +79,13 @@ services:
     cap_add:
       - ALL
     privileged: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
   jupyter:
     build:
       context: .
