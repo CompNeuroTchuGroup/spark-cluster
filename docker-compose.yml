@@ -69,6 +69,7 @@ services:
       - 8002:8888
     environment:
       - JUPYTER_TOKEN=almond
+      - JUPYTERLAB_DIR=/main
     volumes:
       - .:/main/workspace
       - samba-volume:/main/external
@@ -86,31 +87,6 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
-  jupyter:
-    build:
-      context: .
-      dockerfile: pyspark-jupyter.Dockerfile
-      args:
-        openjdk_version: 11
-        spark_version: 3.5.2
-        hadoop_version: 3
-        scala_version: 2.13
-        spark_download_url: "https://archive.apache.org/dist/spark/"
-    user: root
-    ports:
-      - 8003:8888
-    volumes:
-      - .:/main/workspace
-      - samba-volume:/main/external
-    environment:
-      - JUPYTER_TOKEN=jupyter
-    security_opt:
-      - label:disable
-      - seccomp:unconfined
-      - apparmor:unconfined
-    cap_add:
-      - ALL
-    privileged: true  
 volumes:
   samba-volume:
     driver_opts:
