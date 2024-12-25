@@ -69,7 +69,7 @@ services:
       - 8002:8888
     environment:
       - JUPYTER_TOKEN=almond
-      - JUPYTERLAB_DIR=/main
+      - JUPYTERLAB_WORKSPACES_DIR=/main
     volumes:
       - .:/main/workspace
       - samba-volume:/main/external
