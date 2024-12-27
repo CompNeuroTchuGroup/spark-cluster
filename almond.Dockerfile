@@ -1,4 +1,4 @@
-FROM almondsh/almond:latest as almond
+FROM almondsh/almond:latest AS almond
 
 USER root
 
