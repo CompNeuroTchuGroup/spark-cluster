@@ -68,7 +68,7 @@ services:
       dockerfile: almond.Dockerfile
       args:
         SCALA_VERSIONS: 2.12.19 2.13.11
-        ALMOND_VERSION: 0.13.14
+        ALMOND_VERSION: 0.14.0-RC15
     user: root
     ports:
       - 8002:8888
