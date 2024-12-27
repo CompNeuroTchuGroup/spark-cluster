@@ -36,7 +36,7 @@ FROM local_ivy_${LOCAL_IVY}
 ARG ALMOND_VERSION
 # Set to a single Scala version string or list of Scala versions separated by a space.
 # i.e SCALA_VERSIONS="2.12.19 2.13.11"
-ARG SCALA_VERSIONS="2.12.19 2.13.11"
+ARG SCALA_VERSIONS
 COPY install-kernels.sh .
 RUN ./install-kernels.sh && \
     rm install-kernels.sh && \
