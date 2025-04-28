@@ -12,6 +12,8 @@ services:
     volumes:
       - .:/main/workspace
       - samba-volume:/main/external
+      - ${REPOS_PATH}:/main/repos
+      - ${PIP_PATH}:/main/python-packages
     security_opt:
       - label:disable
       - seccomp:unconfined
