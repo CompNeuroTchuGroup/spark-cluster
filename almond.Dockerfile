@@ -39,12 +39,12 @@ RUN apt-get update && apt-get install -y \
     openjdk-11-jdk
 
 # Install CUDA toolkit
-RUN wget --quiet https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-ubuntu2404.pin && \
-    mv cuda-ubuntu2404.pin /etc/apt/preferences.d/cuda-repository-pin-600 && \
-    wget --quiet https://developer.download.nvidia.com/compute/cuda/12.8.1/local_installers/cuda-repo-ubuntu2404-12-8-local_12.8.1-570.124.06-1_amd64.deb && \
-    dpkg -i cuda-repo-ubuntu2404-12-8-local_12.8.1-570.124.06-1_amd64.deb && \
-    cp /var/cuda-repo-ubuntu2404-12-8-local/cuda-*-keyring.gpg /usr/share/keyrings/ && \
-    apt-get update && \
+RUN wget --quiet https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-ubuntu2404.pin
+RUN mv cuda-ubuntu2404.pin /etc/apt/preferences.d/cuda-repository-pin-600
+RUN wget --quiet https://developer.download.nvidia.com/compute/cuda/12.8.1/local_installers/cuda-repo-ubuntu2404-12-8-local_12.8.1-570.124.06-1_amd64.deb
+RUN dpkg -i cuda-repo-ubuntu2404-12-8-local_12.8.1-570.124.06-1_amd64.deb
+RUN cp /var/cuda-repo-ubuntu2404-12-8-local/cuda-*-keyring.gpg /usr/share/keyrings/
+RUN apt-get update && \
     apt-get -y install cuda-toolkit-12-8
 
 # Set environment variables for CUDA
@@ -63,6 +63,8 @@ RUN curl -Lo coursier https://git.io/coursier-cli && \
 COPY requirements.txt /main/requirements.txt
 RUN python3.11 -m pip install setuptools
 RUN python3.11 -m pip install -r /main/requirements.txt
+RUN rm -rf /usr/bin/python3.10
+RUN update-alternatives --remove python /usr/bin/python3.10
 
 # Create symlinks for python and pip
 RUN ln -s /usr/bin/python3.11 /usr/bin/python && \
